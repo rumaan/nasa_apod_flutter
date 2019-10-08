@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 
@@ -25,7 +26,8 @@ class ApodDetailsPage extends StatelessWidget {
             flexibleSpace: FlexibleSpaceBar(
               background: Hero(
                 tag: apod.date,
-                child: Image.network(apod.url, fit: BoxFit.cover),
+                child:
+                    CachedNetworkImage(imageUrl: apod.url, fit: BoxFit.cover),
               ),
             ),
           ),
