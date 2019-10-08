@@ -1,5 +1,7 @@
 import 'dart:ui';
 
+import 'package:cached_network_image/cached_network_image.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import '../../model/apod_model.dart';
@@ -45,11 +47,19 @@ class ApodListItem extends StatelessWidget {
                   tag: item.date,
                   child: Container(
                     width: double.maxFinite,
-                    child: Image.network(
-                      item.url,
+                    child: CachedNetworkImage(
+                      imageUrl: item.url,
                       fit: BoxFit.cover,
-                      alignment: Alignment.center,
                       height: double.maxFinite,
+                      alignment: Alignment.center,
+                      placeholder: (context, url) =>
+                          Center(child: CupertinoActivityIndicator()),
+                      errorWidget: (context, url, error) => Center(
+                        child: Icon(
+                          Icons.error,
+                          color: Colors.red,
+                        ),
+                      ),
                     ),
                   ),
                 ),
@@ -57,7 +67,7 @@ class ApodListItem extends StatelessWidget {
                   alignment: Alignment.bottomCenter,
                   child: ClipRect(
                     child: BackdropFilter(
-                      filter: ImageFilter .blur(
+                      filter: ImageFilter.blur(
                         sigmaX: 6.0,
                         sigmaY: 7.0,
                       ),

@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart';
+import 'package:dio_http_cache/dio_http_cache.dart';
 
 import '../utils/api_key_provider.dart';
 
@@ -14,13 +15,16 @@ class ApiClientProvider {
   static Future initializeClient() async {
     final apiKey = await getApiKey();
     _client
-      ..interceptors.add(
-        InterceptorsWrapper(
-          onRequest: (requestOptions) {
-            requestOptions.queryParameters.addAll({_api_query_param: apiKey});
-            return requestOptions;
-          },
-        ),
+      ..interceptors.addAll(
+        [
+          InterceptorsWrapper(
+            onRequest: (requestOptions) {
+              requestOptions.queryParameters.addAll({_api_query_param: apiKey});
+              return requestOptions;
+            },
+          ),
+          DioCacheManager(CacheConfig(baseUrl: BASE_API_URL)).interceptor,
+        ],
       );
   }
 }
