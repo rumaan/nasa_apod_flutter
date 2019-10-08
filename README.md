@@ -2,6 +2,9 @@
 
 A simple Flutter Application that shows a list of Astronomical Pictures from [NASA APOD API](https://apod.nasa.gov/apod/astropix.html) 🚀🛰
 
+## Screenshots
+![Home and Details Page](screenshots/screenshot.png)
+
 ## Getting Started
 Make sure you grab the *API KEY* from [NASA API](https://api.nasa.gov/).
 <br>After you have obtained the api key.
@@ -25,9 +28,11 @@ From here onwards its pretty straight forward. Just `cd` into the directory and 
 <br>
 This Flutter app should serve as a kickstarter to many new/intermediate Flutter Devs who are willing to contribute in #hacktoberfest 👩‍💻👨‍💻
 <br>
+<br>
 This app isn't perfect. Let's add more features and improve this 😇
 <br>
 <br>
-Check out the issues section and send in the PR's 💛
+
+**Check out the issues section and send in the PR's** 💛
 
 Happy Hacktoberfest!
