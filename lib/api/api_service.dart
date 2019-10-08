@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart';
+import 'package:dio_http_cache/dio_http_cache.dart';
 
 import '../model/apod_model.dart';
 import 'api_client_provider.dart';
@@ -12,6 +13,7 @@ class ApodApi extends ApiClientProvider implements BaseApiService {
     final response = await client.get(
       _APOD_ENDPOINT,
       queryParameters: {"date": dateTime},
+      options: buildCacheOptions(Duration(days: 14))
     );
     if (response.statusCode != 200) {
       throw FailedToFetchApodException(response);
