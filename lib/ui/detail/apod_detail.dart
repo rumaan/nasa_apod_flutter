@@ -28,7 +28,7 @@ class ApodDetailsPage extends StatelessWidget {
             ),
           ),
           SliverPadding(
-            padding: EdgeInsets.symmetric(vertical: 14, horizontal: 8),
+            padding: EdgeInsets.symmetric(vertical: 14, horizontal: 16),
             sliver: DefaultTextStyle(
               style: TextStyle(color: Colors.black),
               child: SliverFillRemaining(

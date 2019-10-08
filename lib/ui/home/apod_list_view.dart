@@ -1,6 +1,8 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:nasa_apod_flutter/model/apod_model.dart';
-import 'package:nasa_apod_flutter/ui/home/apod_list_item.dart';
+
+import '../../model/apod_model.dart';
+import 'apod_list_item.dart';
 
 class ApodListView extends StatelessWidget {
   final List<ApodModel> items;
@@ -12,9 +14,23 @@ class ApodListView extends StatelessWidget {
     return SliverList(
       delegate: SliverChildBuilderDelegate(
         (context, index) {
+          if (index == items.length) {
+            return _buildLoading();
+          }
           return ApodListItem(item: items[index]);
         },
-        childCount: items.length,
+        childCount: items.length + 1,
+      ),
+    );
+  }
+
+  Widget _buildLoading() {
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 12.0),
+      child: Center(
+        child: CupertinoActivityIndicator(
+          radius: 12,
+        ),
       ),
     );
   }

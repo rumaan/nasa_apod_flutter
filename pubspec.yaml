@@ -14,6 +14,7 @@ dependencies:
   dio: ^3.0.3
   built_value:
   intl: ^0.16.0
+  provider: ^3.1.0
 
 dev_dependencies:
   flutter_test:

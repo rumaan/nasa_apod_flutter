@@ -13,6 +13,7 @@ abstract class ApodModel implements Built<ApodModel, ApodModelBuilder> {
   String get explanation;
 
   @BuiltValueField(wireName: "hdurl")
+  @nullable
   String get hdUrl;
 
   @BuiltValueField(wireName: "media_type")

@@ -23,9 +23,6 @@ class _$ApodModelSerializer implements StructuredSerializer<ApodModel> {
       'explanation',
       serializers.serialize(object.explanation,
           specifiedType: const FullType(String)),
-      'hdurl',
-      serializers.serialize(object.hdUrl,
-          specifiedType: const FullType(String)),
       'media_type',
       serializers.serialize(object.mediaType,
           specifiedType: const FullType(String)),
@@ -42,6 +39,12 @@ class _$ApodModelSerializer implements StructuredSerializer<ApodModel> {
       result
         ..add('copyright')
         ..add(serializers.serialize(object.copyright,
+            specifiedType: const FullType(String)));
+    }
+    if (object.hdUrl != null) {
+      result
+        ..add('hdurl')
+        ..add(serializers.serialize(object.hdUrl,
             specifiedType: const FullType(String)));
     }
     return result;
@@ -133,9 +136,6 @@ class _$ApodModel extends ApodModel {
     }
     if (explanation == null) {
       throw new BuiltValueNullFieldError('ApodModel', 'explanation');
-    }
-    if (hdUrl == null) {
-      throw new BuiltValueNullFieldError('ApodModel', 'hdUrl');
     }
     if (mediaType == null) {
       throw new BuiltValueNullFieldError('ApodModel', 'mediaType');

@@ -10,13 +10,13 @@ class ApiClientProvider {
 
   Dio get client => _client;
 
-  static void initializeClient() async {
+  static Future initializeClient() async {
     final apiKey = await getApiKey();
     _client
       ..interceptors.add(
         InterceptorsWrapper(
           onRequest: (requestOptions) {
-            requestOptions.queryParameters[_api_query_param] = apiKey;
+            requestOptions.queryParameters.addAll({_api_query_param: apiKey});
             return requestOptions;
           },
         ),

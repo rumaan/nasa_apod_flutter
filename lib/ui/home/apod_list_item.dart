@@ -11,7 +11,7 @@ class ApodListItem extends StatelessWidget {
   const ApodListItem({Key key, @required this.item}) : super(key: key);
   @override
   Widget build(BuildContext context) {
-    final _borderRadius = BorderRadius.circular(4.0);
+    final _borderRadius = BorderRadius.circular(7.0);
 
     void _handleItemClick() {
       Navigator.of(context).push(
@@ -21,7 +21,7 @@ class ApodListItem extends StatelessWidget {
             opacity: anim,
             child: child,
           ),
-          transitionDuration: Duration(milliseconds: 500),
+          transitionDuration: Duration(milliseconds: 375),
         ),
       );
     }
@@ -34,6 +34,8 @@ class ApodListItem extends StatelessWidget {
         shape: RoundedRectangleBorder(borderRadius: _borderRadius),
         child: Container(
           height: 270,
+          width: double.maxFinite,
+          decoration: BoxDecoration(borderRadius: _borderRadius),
           child: ClipRRect(
             borderRadius: _borderRadius,
             child: Stack(
@@ -41,17 +43,21 @@ class ApodListItem extends StatelessWidget {
               children: <Widget>[
                 Hero(
                   tag: item.date,
-                  child: Image.network(
-                    item.url,
-                    fit: BoxFit.cover,
-                    height: 270,
+                  child: Container(
+                    width: double.maxFinite,
+                    child: Image.network(
+                      item.url,
+                      fit: BoxFit.cover,
+                      alignment: Alignment.center,
+                      height: double.maxFinite,
+                    ),
                   ),
                 ),
                 Align(
                   alignment: Alignment.bottomCenter,
                   child: ClipRect(
                     child: BackdropFilter(
-                      filter: ImageFilter.blur(
+                      filter: ImageFilter .blur(
                         sigmaX: 6.0,
                         sigmaY: 7.0,
                       ),
@@ -78,7 +84,7 @@ class ApodListItem extends StatelessWidget {
                                 item.explanation,
                                 style: Theme.of(context).textTheme.body1,
                                 overflow: TextOverflow.ellipsis,
-                                maxLines: 2,
+                                maxLines: 1,
                               ),
                             ),
                           ],
