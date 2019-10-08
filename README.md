@@ -1,12 +1,12 @@
 # NASA Astronomical Picture of the Day (APOD)
 
-A simple Flutter Application that shows a list of Astronomical Pictures from [NASA APOD API](https://apod.nasa.gov/apod/astropix.html) 🚀🛰
+A simple [Flutter](https://flutter.dev/) Application that shows a list of Astronomical Pictures in chronological order fetched from [NASA APOD API](https://apod.nasa.gov/apod/astropix.html) 🚀🛰
 
 ## Screenshots
 ![Home and Details Page](screenshots/screenshot.png)
 
 ## Getting Started
-Make sure you grab the *API KEY* from [NASA API](https://api.nasa.gov/).
+Make sure you grab the **API_KEY** from [NASA API](https://api.nasa.gov/).
 <br>After you have obtained the api key.
 Create a new file called `api_key.json` in `assets/` directory.
 <br>
@@ -16,7 +16,7 @@ Copy & paste the following lines into it and make sure to **replace** the key wi
     "key": "YOUR_API_KEY_HERE"
 }
 ```
-From here onwards its pretty straight forward. Just `cd` into the directory and run `flutter run` to run the app on your emulator/device.
+From here onwards its pretty straight forward. Just `cd` into the root directory and run `flutter run` to run the app on your emulator/device.
 
 
 ## Packages Used
