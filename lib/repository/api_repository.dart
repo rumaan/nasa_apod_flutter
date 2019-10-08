@@ -1,7 +1,7 @@
-import 'package:nasa_apod_flutter/api/base_api_service.dart';
-import 'package:nasa_apod_flutter/model/apod_model.dart';
-import 'package:nasa_apod_flutter/repository/base_repository.dart';
-import 'package:nasa_apod_flutter/utils/date_utils.dart';
+import '../api/base_api_service.dart';
+import '../model/apod_model.dart';
+import '../utils/date_utils.dart';
+import 'base_repository.dart';
 
 class ApiRepository implements BaseRepository {
   final BaseApiService apiService;

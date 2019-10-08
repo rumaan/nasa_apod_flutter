@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
-import 'package:nasa_apod_flutter/model/apod_model.dart';
+
+import '../../model/apod_model.dart';
 
 class ApodDetailsPage extends StatelessWidget {
   final ApodModel apod;
@@ -17,6 +18,7 @@ class ApodDetailsPage extends StatelessWidget {
         child: Icon(Icons.file_download),
       ),
       body: CustomScrollView(
+        physics: BouncingScrollPhysics(),
         slivers: <Widget>[
           SliverAppBar(
             expandedHeight: 370.0,

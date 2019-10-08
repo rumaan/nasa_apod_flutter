@@ -1,16 +1,33 @@
-# nasa_apod_flutter
+# NASA Astronomical Picture of the Day (APOD)
 
-A new Flutter project.
+A simple Flutter Application that shows a list of Astronomical Pictures from [NASA APOD API](https://apod.nasa.gov/apod/astropix.html) 🚀🛰
 
 ## Getting Started
+Make sure you grab the *API KEY* from [NASA API](https://api.nasa.gov/).
+<br>After you have obtained the api key.
+Create a new file called `api_key.json` in `assets/` directory.
+<br>
+Copy & paste the following lines into it and make sure to **replace** the key with your **API_KEY**
+```
+{
+    "key": "YOUR_API_KEY_HERE"
+}
+```
+From here onwards its pretty straight forward. Just `cd` into the directory and run `flutter run` to run the app on your emulator/device.
 
-This project is a starting point for a Flutter application.
 
-A few resources to get you started if this is your first Flutter project:
+## Packages Used
+- [dio](https://pub.dev/packages/dio)
+- [provider](https://pub.dev/packages/provider)
+- [built_value](https://pub.dev/packages/built_value)
+- [intl](https://pub.dev/packages/intl)
 
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
+<br>
+This Flutter app should serve as a kickstarter to many new/intermediate Flutter Devs who are willing to contribute in #hacktoberfest 👩‍💻👨‍💻
+<br>
+This app isn't perfect. Let's add more features and improve this 😇
+<br>
+<br>
+Check out the issues section and send in the PR's 💛
 
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+Happy Hacktoberfest!

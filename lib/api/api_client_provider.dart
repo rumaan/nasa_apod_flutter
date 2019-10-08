@@ -1,5 +1,6 @@
 import 'package:dio/dio.dart';
-import 'package:nasa_apod_flutter/utils/api_key_provider.dart';
+
+import '../utils/api_key_provider.dart';
 
 const BASE_API_URL = "https://api.nasa.gov/planetary";
 
