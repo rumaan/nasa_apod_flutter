@@ -13,6 +13,7 @@ dependencies:
   transparent_image: ^1.0.0
   dio: ^3.0.3
   built_value:
+  intl: ^0.16.0
 
 dev_dependencies:
   flutter_test:
@@ -25,5 +26,3 @@ flutter:
   uses-material-design: true
   assets:
   - assets/
-
-

@@ -7,6 +7,7 @@ import 'package:nasa_apod_flutter/model/serializers.dart';
 part 'apod_model.g.dart';
 
 abstract class ApodModel implements Built<ApodModel, ApodModelBuilder> {
+  @nullable
   String get copyright;
   String get date;
   String get explanation;

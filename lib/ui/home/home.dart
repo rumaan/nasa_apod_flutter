@@ -2,7 +2,9 @@ import 'dart:convert';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:nasa_apod_flutter/api/api_service.dart';
 import 'package:nasa_apod_flutter/model/apod_model.dart';
+import 'package:nasa_apod_flutter/repository/api_repository.dart';
 import 'package:nasa_apod_flutter/ui/home/app_bar.dart';
 import 'package:nasa_apod_flutter/ui/home/bloc/home_bloc.dart';
 
@@ -15,7 +17,7 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  final bloc = HomeBloc();
+  final bloc = HomeBloc(ApiRepository(ApodApi()));
 
   @override
   void dispose() {

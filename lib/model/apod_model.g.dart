@@ -18,9 +18,6 @@ class _$ApodModelSerializer implements StructuredSerializer<ApodModel> {
   Iterable<Object> serialize(Serializers serializers, ApodModel object,
       {FullType specifiedType = FullType.unspecified}) {
     final result = <Object>[
-      'copyright',
-      serializers.serialize(object.copyright,
-          specifiedType: const FullType(String)),
       'date',
       serializers.serialize(object.date, specifiedType: const FullType(String)),
       'explanation',
@@ -41,7 +38,12 @@ class _$ApodModelSerializer implements StructuredSerializer<ApodModel> {
       'url',
       serializers.serialize(object.url, specifiedType: const FullType(String)),
     ];
-
+    if (object.copyright != null) {
+      result
+        ..add('copyright')
+        ..add(serializers.serialize(object.copyright,
+            specifiedType: const FullType(String)));
+    }
     return result;
   }
 
@@ -126,9 +128,6 @@ class _$ApodModel extends ApodModel {
       this.title,
       this.url})
       : super._() {
-    if (copyright == null) {
-      throw new BuiltValueNullFieldError('ApodModel', 'copyright');
-    }
     if (date == null) {
       throw new BuiltValueNullFieldError('ApodModel', 'date');
     }

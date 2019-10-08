@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:nasa_apod_flutter/api/api_client_provider.dart';
 import 'package:nasa_apod_flutter/ui/home/home.dart';
 
-void main() => runApp(MyApp());
+void main() {
+  ApiClientProvider.initializeClient();
+  runApp(MyApp());
+}
 
 class MyApp extends StatelessWidget {
   @override
@@ -10,6 +14,7 @@ class MyApp extends StatelessWidget {
       title: 'Flutter Demo',
       theme: ThemeData(
         primarySwatch: Colors.blue,
+        textTheme: ThemeData.dark().textTheme,
       ),
       home: HomePage(),
     );
