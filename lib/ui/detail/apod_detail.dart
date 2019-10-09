@@ -1,6 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:nasa_apod_flutter/ui/photo/photo_page.dart';
 
 import '../../model/apod_model.dart';
 
@@ -23,11 +24,22 @@ class ApodDetailsPage extends StatelessWidget {
         slivers: <Widget>[
           SliverAppBar(
             expandedHeight: 370.0,
-            flexibleSpace: FlexibleSpaceBar(
-              background: Hero(
-                tag: apod.date,
-                child:
-                    CachedNetworkImage(imageUrl: apod.url, fit: BoxFit.cover),
+            backgroundColor: Colors.black,
+            flexibleSpace: InkWell(
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (ctx) => PhotoViewPage(apod: apod),
+                  ),
+                );
+              },
+              child: FlexibleSpaceBar(
+                background: Hero(
+                  tag: apod.date,
+                  child:
+                      CachedNetworkImage(imageUrl: apod.url, fit: BoxFit.cover),
+                ),
               ),
             ),
           ),

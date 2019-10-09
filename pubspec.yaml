@@ -17,6 +17,7 @@ dependencies:
   provider: ^3.1.0
   dio_http_cache: ^0.2.0
   cached_network_image: ^1.1.1
+  photo_view: ^0.5.0
 
 dev_dependencies:
   flutter_test:
