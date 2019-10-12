@@ -37,6 +37,7 @@ class _HomePageState extends State<HomePage> {
         physics: BouncingScrollPhysics(),
         slivers: <Widget>[
           CustomAppBar(),
+          //TODO: some error during test has been detected. main functionality should debug
           Consumer<HomeBloc>(
             builder: (context, bloc, child) {
               return StreamBuilder<List<ApodModel>>(
