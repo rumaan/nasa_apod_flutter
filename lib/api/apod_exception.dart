@@ -14,7 +14,7 @@ class ApodException implements Exception {
 
   @override
   String toString() {
-    return 'Some thing is Wrong: \n $message';
+    return '$message';
   }
 
 }

@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../../model/apod_model.dart';
+import 'apod_error_widget.dart';
 import 'apod_list_view.dart';
 import 'app_bar.dart';
 import 'bloc/home_bloc.dart';
@@ -14,6 +15,7 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   ScrollController _scrollController;
+
   @override
   void initState() {
     super.initState();
@@ -41,10 +43,18 @@ class _HomePageState extends State<HomePage> {
                 stream: bloc.apodStream,
                 builder: (context, snapshot) {
                   if (snapshot.hasError) {
+                    _scrollController.removeListener(_onScrollListener);
                     return SliverFillRemaining(
                       child: Center(
-                        child:
-                            Text("Error occurred while retrieving the list."),
+                        child: ApodErrorWidget(
+                          error: snapshot.error.toString(),
+                          onRetryClicked: () {
+                            setState(() {
+                              _scrollController.addListener(_onScrollListener);
+                              Provider.of<HomeBloc>(context).loadMore();
+                            });
+                          },
+                        ),
                       ),
                     );
                   }
@@ -52,11 +62,10 @@ class _HomePageState extends State<HomePage> {
                     return SliverFillRemaining(
                         child: Center(child: CupertinoActivityIndicator()));
                   }
-
                   if (snapshot.hasData &&
                       (snapshot.data == null || snapshot.data.isEmpty)) {
                     return SliverFillRemaining(
-                        child: Center(child: Text("List is empty!")));
+                        child: Center(child: Text("List is empty!",style: TextStyle(color: Colors.black54),)));
                   }
                   return ApodListView(items: snapshot.data);
                 },
