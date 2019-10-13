@@ -1,6 +1,6 @@
 import 'dart:async';
 
-import 'package:nasa_apod_flutter/api/api_service.dart';
+import 'package:nasa_apod_flutter/api/apod_exception.dart';
 import 'package:nasa_apod_flutter/model/apod_model.dart';
 import 'package:nasa_apod_flutter/repository/base_repository.dart';
 
@@ -33,14 +33,14 @@ class HomeBloc {
           _addApod(apod);
           date = date.subtract(Duration(days: 1));
           _currentDate = date;
-        } on FailedToFetchApodException catch (e) {
+        } on ApodException catch (e) {
           _addError(e);
         }
       }
     }
   }
 
-  void _addError(FailedToFetchApodException e) {
+  void _addError(ApodException e) {
     _apodListController.sink.addError(e);
   }
 

@@ -17,6 +17,14 @@ class ApiClientProvider {
     _client
       ..interceptors.addAll(
         [
+          LogInterceptor(
+            error: true,
+            request: true,
+            requestHeader: true,
+            requestBody:  true,
+            responseHeader: true,
+            responseBody: true,
+          ),
           InterceptorsWrapper(
             onRequest: (requestOptions) {
               requestOptions.queryParameters.addAll({_api_query_param: apiKey});
