@@ -26,6 +26,7 @@ From here onwards its pretty straight forward. Just `cd` into the root directory
 - [intl](https://pub.dev/packages/intl)
 - [cached_network_image](https://pub.dev/packages/cached_network_image)
 - [photo_view](https://pub.dev/packages/photo_view)
+- [image_downloader](https://pub.dev/packages/image_downloader)
 
 <br>
 This Flutter app should serve as a kickstarter to many new/intermediate Flutter Devs who are willing to contribute in #hacktoberfest 👩‍💻👨‍💻

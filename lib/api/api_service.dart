@@ -1,7 +1,8 @@
 import 'package:dio_http_cache/dio_http_cache.dart';
-import 'package:nasa_apod_flutter/utils/exception_handler.dart';
+import 'package:image_downloader/image_downloader.dart';
 
 import '../model/apod_model.dart';
+import '../utils/exception_handler.dart';
 import 'api_client_provider.dart';
 import 'apod_exception.dart';
 import 'base_api_service.dart';
@@ -21,5 +22,16 @@ class ApodApi extends ApiClientProvider implements BaseApiService {
       throw ApodException(message: ExceptionHandler.parseException(exception));
     }
   }
-}
 
+  @override
+  Future downloadImage(String url) async {
+    try {
+      var imageId = await ImageDownloader.downloadImage(url);
+      if (imageId == null) {
+        throw ApodException(message: "Permissions have been denied");
+      }
+    } catch (e) {
+      rethrow;
+    }
+  }
+}

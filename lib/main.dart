@@ -15,16 +15,16 @@ void main() async {
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'NASA APOD Flutter',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-        textTheme: ThemeData.dark().textTheme,
-      ),
-      home: Provider<HomeBloc>(
-        builder: (context) => HomeBloc(ApiRepository(ApodApi())),
-        dispose: (context, bloc) => bloc.dispose(),
-        child: HomePage(),
+    return Provider<HomeBloc>(
+      builder: (context) => HomeBloc(ApiRepository(ApodApi())),
+      dispose: (context, bloc) => bloc.dispose(),
+      child: MaterialApp(
+        title: 'NASA APOD Flutter',
+        theme: ThemeData(
+          primarySwatch: Colors.blue,
+          textTheme: ThemeData.dark().textTheme,
+        ),
+        home: HomePage(),
       ),
     );
   }
