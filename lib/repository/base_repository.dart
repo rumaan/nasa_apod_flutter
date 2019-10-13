@@ -4,5 +4,5 @@ abstract class BaseRepository {
   // TODO: Mock these with tests later
   Future<ApodModel> getApod(DateTime date);
 
-  Future downloadImage(ApodModel apod, {Function(int, int) downloadProgress});
+  Future downloadImage(ApodModel apod);
 }

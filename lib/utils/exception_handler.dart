@@ -40,7 +40,7 @@ class ExceptionHandler {
   static String _parseResponseError(Response response) {
     try {
       final mapData = response?.data;
-      return mapData['error']['message'];
+      return mapData['error']['msg'];
     } catch (e, stack) {
       _printException(e, stack);
       return "Please try again Later";

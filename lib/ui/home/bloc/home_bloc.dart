@@ -1,5 +1,7 @@
 import 'dart:async';
 
+import 'package:image_downloader/image_downloader.dart';
+
 import '../../../api/apod_exception.dart';
 import '../../../model/apod_model.dart';
 import '../../../repository/base_repository.dart';
@@ -19,7 +21,8 @@ class HomeBloc {
 
   HomeBloc(this._repository) {
     _apodListController = StreamController<List<ApodModel>>.broadcast();
-    _currentDate = DateTime.now();
+    // TODO: change this later
+    _currentDate = DateTime.now().subtract(Duration(days: 1));
     _getApods(_currentDate, _MAX_COUNT);
   }
 
@@ -33,14 +36,11 @@ class HomeBloc {
   }
 
   void download(ApodModel apod) async {
-    await _repository.downloadImage(
-      apod,
-      downloadProgress: (recieved, total) {
-        final progress = _computeProgress(recieved, total);
-        print("Progress: $progress");
-        _downloadProgress.sink.add(progress);
-      },
-    );
+    // set up download progress callback
+    ImageDownloader.callback(onProgressUpdate: (id, progress) {
+      _downloadProgress.sink.add(_computeProgress(progress));
+    });
+    await _repository.downloadImage(apod);
   }
 
   void loadMore() {
@@ -65,9 +65,8 @@ class HomeBloc {
     _apodListController.sink.addError(e);
   }
 
-  double _computeProgress(int recieved, int total) {
-    final progress = recieved / total;
-    return progress;
+  double _computeProgress(int progress) {
+    return progress / 100.0;
   }
 
   void _getApods(DateTime date, int count) async {
@@ -85,5 +84,9 @@ class HomeBloc {
         }
       }
     }
+  }
+
+  void cancelDownload() async {
+    await ImageDownloader.cancel();
   }
 }

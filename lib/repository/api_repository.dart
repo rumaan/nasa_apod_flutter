@@ -17,21 +17,8 @@ class ApiRepository implements BaseRepository {
   }
 
   @override
-  Future downloadImage(ApodModel apod,
-      {Function(int, int) downloadProgress}) async {
-    final url = apod.url;
-    final fileName = _getFileName(url);
-    final dir = await getApplicationDocumentsDirectory();
-    final savePath = "${dir.path}/$fileName";
-    return await apiService.downloadImage(
-      url,
-      savePath,
-      progress: downloadProgress,
-    );
-  }
-
-  String _getFileName(String url) {
-    int fromIndex = url.lastIndexOf("/") + 1;
-    return url.substring(fromIndex);
+  Future downloadImage(ApodModel apod) async {
+    final url = apod.hdUrl ?? apod.url;
+    return await apiService.downloadImage(url);
   }
 }

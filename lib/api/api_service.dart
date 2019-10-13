@@ -1,4 +1,5 @@
 import 'package:dio_http_cache/dio_http_cache.dart';
+import 'package:image_downloader/image_downloader.dart';
 
 import '../model/apod_model.dart';
 import '../utils/exception_handler.dart';
@@ -23,16 +24,14 @@ class ApodApi extends ApiClientProvider implements BaseApiService {
   }
 
   @override
-  Future downloadImage(String url, String savePath, {progress}) async {
-    return await client.download(
-      url,
-      savePath,
-      onReceiveProgress: (recieved, total) {
-        if (progress != null) {
-          progress(recieved, total);
-        }
-        print("Rec: $recieved, Tot: $total");
-      },
-    );
+  Future downloadImage(String url) async {
+    try {
+      var imageId = await ImageDownloader.downloadImage(url);
+      if (imageId == null) {
+        throw ApodException(message: "Permissions have been denied");
+      }
+    } catch (e) {
+      rethrow;
+    }
   }
 }
