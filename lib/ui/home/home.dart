@@ -25,7 +25,7 @@ class _HomePageState extends State<HomePage> {
 
   @override
   void dispose() {
-    _scrollController.dispose();
+    _scrollController?.dispose();
     super.dispose();
   }
 

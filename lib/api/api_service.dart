@@ -1,7 +1,7 @@
 import 'package:dio_http_cache/dio_http_cache.dart';
-import 'package:nasa_apod_flutter/utils/exception_handler.dart';
 
 import '../model/apod_model.dart';
+import '../utils/exception_handler.dart';
 import 'api_client_provider.dart';
 import 'apod_exception.dart';
 import 'base_api_service.dart';
@@ -21,5 +21,18 @@ class ApodApi extends ApiClientProvider implements BaseApiService {
       throw ApodException(message: ExceptionHandler.parseException(exception));
     }
   }
-}
 
+  @override
+  Future downloadImage(String url, String savePath, {progress}) async {
+    return await client.download(
+      url,
+      savePath,
+      onReceiveProgress: (recieved, total) {
+        if (progress != null) {
+          progress(recieved, total);
+        }
+        print("Rec: $recieved, Tot: $total");
+      },
+    );
+  }
+}

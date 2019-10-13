@@ -1,22 +1,22 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
-import 'package:nasa_apod_flutter/ui/photo/photo_page.dart';
+import 'package:provider/provider.dart';
 
 import '../../model/apod_model.dart';
+import '../home/bloc/home_bloc.dart';
+import '../photo/photo_page.dart';
 
 class ApodDetailsPage extends StatelessWidget {
   final ApodModel apod;
 
-  const ApodDetailsPage({
-    Key key,
-    @required this.apod,
-  }) : super(key: key);
+  const ApodDetailsPage({Key key, this.apod}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       floatingActionButton: FloatingActionButton(
-        onPressed: () {},
+        onPressed: () => _handleDownloadClick(context),
         child: Icon(Icons.file_download),
       ),
       body: CustomScrollView(
@@ -88,6 +88,70 @@ class ApodDetailsPage extends StatelessWidget {
           )
         ],
       ),
+    );
+  }
+
+  Widget _downloadComplete(BuildContext context) {
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: <Widget>[
+        Icon(Icons.check_circle, color: Colors.green, size: 75.0),
+        SizedBox(height: 14),
+        Text(
+          'Download Complete',
+          style:
+              Theme.of(context).textTheme.title.copyWith(color: Colors.black),
+        ),
+      ],
+    );
+  }
+
+  Widget _downloading(BuildContext context, AsyncSnapshot<double> snapshot) {
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: <Widget>[
+        Text(
+          'Downloading...',
+          style:
+              Theme.of(context).textTheme.title.copyWith(color: Colors.black),
+        ),
+        SizedBox(height: 18),
+        ClipRRect(
+          borderRadius: BorderRadius.circular(4),
+          child: LinearProgressIndicator(
+            value: snapshot.data,
+            semanticsValue: "${snapshot.data * 100}%",
+            semanticsLabel: "Download Progress",
+          ),
+        ),
+      ],
+    );
+  }
+
+  void _handleDownloadClick(BuildContext context) async {
+    final bloc = Provider.of<HomeBloc>(context);
+    bloc.download(apod);
+    await showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (ctx) {
+        return AlertDialog(
+          shape:
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(4.0)),
+          content: StreamBuilder<double>(
+            stream: bloc.downloadProgress,
+            initialData: 0.01,
+            builder: (BuildContext context, AsyncSnapshot<double> snapshot) {
+              if (snapshot.data == 1.0) {
+                return _downloadComplete(context);
+              }
+              return _downloading(context, snapshot);
+            },
+          ),
+        );
+      },
     );
   }
 }
