@@ -14,7 +14,7 @@ packages:
       name: analyzer_plugin
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.1.0"
+    version: "0.2.1"
   args:
     dependency: transitive
     description:
@@ -449,7 +449,7 @@ packages:
       name: sqflite
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "1.1.7"
+    version: "1.1.7+1"
   stack_trace:
     dependency: transitive
     description:
@@ -547,7 +547,7 @@ packages:
       name: web_socket_channel
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "1.0.15"
+    version: "1.1.0"
   yaml:
     dependency: transitive
     description:
