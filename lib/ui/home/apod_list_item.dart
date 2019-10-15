@@ -94,17 +94,20 @@ class ApodListItem extends StatelessWidget {
                             maxLines: 1,
                             style: TextStyle(
                                 fontWeight: FontWeight.w600,
-                                fontFamily: "PlayfairDisplay",
+                                fontFamily: "Rubik Regular",
                                 fontSize: 20),
                           ),
                           Text(
                             item.date,
-                            style: TextStyle(fontFamily: "Montserrat"),
+                            style: TextStyle(fontFamily: "Rubik Light"),
                           ),
                           Flexible(
                             child: Text(
                               item.explanation,
-                              style: TextStyle(fontFamily: "Montserrat"),
+                              style: TextStyle(
+                                fontFamily: "Zilla Slab Light",
+                                fontSize: 16,
+                              ),
                               overflow: TextOverflow.ellipsis,
                               maxLines: 1,
                             ),

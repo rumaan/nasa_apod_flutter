@@ -84,6 +84,7 @@ class ApodDetailsPage extends StatelessWidget {
                       child: Divider(
                         thickness: 6,
                         height: 20,
+                        color: Colors.grey,
                       ),
                     ),
                     SizedBox(
@@ -96,7 +97,7 @@ class ApodDetailsPage extends StatelessWidget {
                       style: TextStyle(
                           fontWeight: FontWeight.w600,
                           fontSize: 30,
-                          fontFamily: "PlayfairDisplay"),
+                          fontFamily: "Rubik Regular"),
                     ),
                     Padding(
                       padding: const EdgeInsets.symmetric(vertical: 16.0),
@@ -106,7 +107,7 @@ class ApodDetailsPage extends StatelessWidget {
                             fontSize: 16,
                             color: Colors.grey,
                             fontWeight: FontWeight.w500,
-                            fontFamily: "Montserrat"),
+                            fontFamily: "Rubik Light"),
                       ),
                     ),
                     Text(
@@ -114,8 +115,8 @@ class ApodDetailsPage extends StatelessWidget {
                       textAlign: TextAlign.justify,
                       style: TextStyle(
                           fontWeight: FontWeight.w400,
-                          fontSize: 16,
-                          fontFamily: "Montserrat"),
+                          fontSize: 18,
+                          fontFamily: "Zilla Slab Light"),
                     ),
                   ],
                 ),
@@ -181,7 +182,7 @@ class ApodDetailsPage extends StatelessWidget {
           'Downloading...',
           style: Theme.of(context).textTheme.title.copyWith(
                 color: Colors.black,
-                fontFamily: "PlayfairDisplay",
+                fontFamily: "Rubik Regular",
                 fontWeight: FontWeight.w600,
               ),
         ),
@@ -204,7 +205,7 @@ class ApodDetailsPage extends StatelessWidget {
               child: Text(
                 'CANCEL',
                 style: TextStyle(
-                  fontFamily: "Montserrat",
+                  fontFamily: "Rubik Light",
                   fontWeight: FontWeight.w600,
                   fontSize: 12,
                   color: Colors.black,
@@ -240,7 +241,7 @@ class ApodDetailsPage extends StatelessWidget {
               title: Text(
                 'Download the image?',
                 style: TextStyle(
-                    fontFamily: "PlayfairDisplay",
+                    fontFamily: "Rubik Regular",
                     color: Colors.black,
                     fontWeight: FontWeight.w600,
                     fontSize: 24),
@@ -251,7 +252,7 @@ class ApodDetailsPage extends StatelessWidget {
                   child: Text(
                     'Yes, Download'.toUpperCase(),
                     style: TextStyle(
-                        fontFamily: "Montserrat",
+                        fontFamily: "Rubik Light",
                         color: Colors.black,
                         fontSize: 12,
                         fontWeight: FontWeight.w600),
@@ -265,7 +266,7 @@ class ApodDetailsPage extends StatelessWidget {
                   child: Text(
                     'Cancel'.toUpperCase(),
                     style: TextStyle(
-                      fontFamily: "Montserrat",
+                      fontFamily: "Rubik Light",
                       fontWeight: FontWeight.w600,
                       fontSize: 12,
                       color: Colors.black,

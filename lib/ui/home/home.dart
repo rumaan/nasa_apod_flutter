@@ -45,6 +45,7 @@ class _HomePageState extends State<HomePage> {
                     style: TextStyle(
                         color: Colors.white,
                         fontSize: 24.0,
+                        fontFamily: "Rubik Regular",
                         fontWeight: FontWeight.bold)),
                 background: Image.asset(
                   "assets/images/earth.png",

@@ -35,10 +35,14 @@ flutter:
   - assets/images/
 
   fonts:
-    - family: Montserrat
+    - family: Rubik Regular
       fonts:
-        - asset: assets/fonts/Montserrat-Regular.ttf
+        - asset: assets/fonts/Rubik-Regular.ttf
 
-    - family: PlayfairDisplay
+    - family: Rubik Light
       fonts:
-        - asset: assets/fonts/PlayfairDisplay.ttf
+        - asset: assets/fonts/Rubik-Light.ttf
+
+    - family: Zilla Slab Light
+      fonts:
+        - asset: assets/fonts/ZillaSlab-Light.ttf
