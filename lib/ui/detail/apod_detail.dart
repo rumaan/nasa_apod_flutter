@@ -38,7 +38,7 @@ class ApodDetailsPage extends StatelessWidget {
               },
               child: FlexibleSpaceBar(
                 background: Hero(
-                  tag: apod.date,
+                  tag: apod.url,
                   child:
                       CachedNetworkImage(imageUrl: apod.url, fit: BoxFit.cover),
                 ),
@@ -53,31 +53,44 @@ class ApodDetailsPage extends StatelessWidget {
                 hasScrollBody: false,
                 fillOverscroll: true,
                 child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
+                    Container(
+                      width: 80,
+                      child: Divider(
+                        thickness: 6,
+                        height: 20,
+                      ),
+                    ),
+                    SizedBox(
+                      height: 10,
+                    ),
                     Text(
                       apod.title,
                       maxLines: 3,
+                      textAlign: TextAlign.center,
                       style: TextStyle(
-                        fontWeight: FontWeight.w300,
-                        fontSize: 26,
+                          fontWeight: FontWeight.w600,
+                          fontSize: 30,
+                          fontFamily: "PlayfairDisplay"),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 16.0),
+                      child: Text(
+                        apod.date,
+                        style: TextStyle(
+                            fontSize: 16,
+                            color: Colors.grey,
+                            fontWeight: FontWeight.w500,
+                            fontFamily: "Montserrat"),
                       ),
                     ),
-                    SizedBox(height: 8),
-                    Text(
-                      apod.date,
-                      style: TextStyle(
-                        fontSize: 16,
-                        fontWeight: FontWeight.w500,
-                      ),
-                    ),
-                    SizedBox(height: 8),
                     Text(
                       apod.explanation,
+                      textAlign: TextAlign.justify,
                       style: TextStyle(
-                        fontWeight: FontWeight.w400,
-                        fontSize: 16,
-                      ),
+                          fontWeight: FontWeight.w400,
+                          fontSize: 16,
+                          fontFamily: "Montserrat"),
                     ),
                   ],
                 ),

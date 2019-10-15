@@ -1,10 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:nasa_apod_flutter/ui/home/apod_list_item.dart';
 import 'package:provider/provider.dart';
-
 import '../../model/apod_model.dart';
-import 'apod_error_widget.dart';
-import 'apod_list_view.dart';
 import 'app_bar.dart';
 import 'bloc/home_bloc.dart';
 
@@ -15,7 +13,6 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   ScrollController _scrollController;
-
   @override
   void initState() {
     super.initState();
@@ -25,55 +22,72 @@ class _HomePageState extends State<HomePage> {
 
   @override
   void dispose() {
-    _scrollController?.dispose();
+    _scrollController.dispose();
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: CustomScrollView(
+      backgroundColor: Colors.black,
+      body: NestedScrollView(
         controller: _scrollController,
-        physics: BouncingScrollPhysics(),
-        slivers: <Widget>[
-          CustomAppBar(),
-          //TODO: some error during test has been detected. main functionality should debug
-          Consumer<HomeBloc>(
-            builder: (context, bloc, child) {
-              return StreamBuilder<List<ApodModel>>(
-                stream: bloc.apodStream,
-                builder: (context, snapshot) {
-                  if (snapshot.hasError) {
-                    _scrollController.removeListener(_onScrollListener);
-                    return SliverFillRemaining(
-                      child: Center(
-                        child: ApodErrorWidget(
-                          error: snapshot.error.toString(),
-                          onRetryClicked: () {
-                            setState(() {
-                              _scrollController.addListener(_onScrollListener);
-                              Provider.of<HomeBloc>(context).loadMore();
-                            });
-                          },
-                        ),
-                      ),
-                    );
-                  }
-                  if (!snapshot.hasData) {
-                    return SliverFillRemaining(
-                        child: Center(child: CupertinoActivityIndicator()));
-                  }
-                  if (snapshot.hasData &&
-                      (snapshot.data == null || snapshot.data.isEmpty)) {
-                    return SliverFillRemaining(
-                        child: Center(child: Text("List is empty!",style: TextStyle(color: Colors.black54),)));
-                  }
-                  return ApodListView(items: snapshot.data);
-                },
-              );
-            },
-          ),
-        ],
+        headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
+          return <Widget>[
+            SliverAppBar(
+              expandedHeight: 200.0,
+              floating: false,
+              pinned: true,
+              backgroundColor: Colors.black,
+              flexibleSpace: FlexibleSpaceBar(
+                centerTitle: true,
+                title: Text("DISCOVER",
+                    style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 24.0,
+                        fontWeight: FontWeight.bold)),
+                background: Image.asset(
+                  "assets/images/earth.png",
+                  fit: BoxFit.cover,
+                ),
+              ),
+            ),
+          ];
+        },
+        body: Consumer<HomeBloc>(
+          builder: (context, bloc, child) {
+            return StreamBuilder<List<ApodModel>>(
+              stream: bloc.apodStream,
+              builder: (context, snapshot) {
+                if (snapshot.hasError) {
+                  return Center(
+                      child: Text(
+                    "Error while loading the data",
+                    style: TextStyle(color: Colors.white),
+                  ));
+                }
+                if (!snapshot.hasData) {
+                  return Center(child: CupertinoActivityIndicator());
+                }
+
+                if (snapshot.hasData &&
+                    (snapshot.data == null || snapshot.data.isEmpty)) {
+                  return Center(child: Text("List is empty!"));
+                }
+                return ListView.builder(
+                    itemCount: snapshot.data.length + 1,
+                    itemBuilder: (context, index) {
+                      if (index == snapshot.data.length) {
+                        return _buildLoading();
+                      }
+                      return ApodListItem(
+                        item: snapshot.data[index],
+                      );
+                    });
+              },
+            );
+          },
+        ),
       ),
     );
   }
@@ -84,5 +98,16 @@ class _HomePageState extends State<HomePage> {
       // load more items
       Provider.of<HomeBloc>(context).loadMore();
     }
+  }
+
+  Widget _buildLoading() {
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 12.0),
+      child: Center(
+        child: CupertinoActivityIndicator(
+          radius: 12,
+        ),
+      ),
+    );
   }
 }

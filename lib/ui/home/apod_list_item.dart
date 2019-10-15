@@ -30,81 +30,92 @@ class ApodListItem extends StatelessWidget {
 
     return InkWell(
       onTap: _handleItemClick,
-      child: Card(
-        elevation: 6.0,
-        margin: EdgeInsets.symmetric(vertical: 6, horizontal: 8),
-        shape: RoundedRectangleBorder(borderRadius: _borderRadius),
-        child: Container(
-          height: 270,
-          width: double.maxFinite,
-          decoration: BoxDecoration(borderRadius: _borderRadius),
-          child: ClipRRect(
-            borderRadius: _borderRadius,
-            child: Stack(
-              overflow: Overflow.clip,
-              children: <Widget>[
-                Hero(
-                  tag: item.date,
-                  child: Container(
-                    width: double.maxFinite,
-                    child: CachedNetworkImage(
-                      imageUrl: item.url,
-                      fit: BoxFit.cover,
-                      height: double.maxFinite,
-                      alignment: Alignment.center,
-                      placeholder: (context, url) =>
-                          Center(child: CupertinoActivityIndicator()),
-                      errorWidget: (context, url, error) => Center(
-                        child: Icon(
-                          Icons.error,
-                          color: Colors.red,
-                        ),
+      child: Container(
+        height: 270,
+        margin: EdgeInsets.symmetric(vertical: 16, horizontal: 20),
+        width: double.maxFinite,
+        decoration: BoxDecoration(
+          shape: BoxShape.rectangle,
+          borderRadius: _borderRadius,
+          boxShadow: [
+            BoxShadow(
+              color: Colors.white30,
+              offset: Offset(0, 8),
+              blurRadius: 18,
+            ),
+          ],
+        ),
+        child: ClipRRect(
+          borderRadius: _borderRadius,
+          child: Stack(
+            overflow: Overflow.clip,
+            children: <Widget>[
+              Hero(
+                tag: item.url,
+                child: Container(
+                  width: double.maxFinite,
+                  child: CachedNetworkImage(
+                    imageUrl: item.url,
+                    fit: BoxFit.cover,
+                    height: double.maxFinite,
+                    alignment: Alignment.center,
+                    placeholder: (context, url) =>
+                        Center(child: CupertinoActivityIndicator()),
+                    errorWidget: (context, url, error) => Center(
+                      child: Icon(
+                        Icons.error,
+                        color: Colors.red,
                       ),
                     ),
                   ),
                 ),
-                Align(
-                  alignment: Alignment.bottomCenter,
-                  child: ClipRect(
-                    child: BackdropFilter(
-                      filter: ImageFilter.blur(
-                        sigmaX: 6.0,
-                        sigmaY: 7.0,
-                      ),
-                      child: Container(
-                        padding: EdgeInsets.symmetric(
-                            horizontal: 12.0, vertical: 6.0),
-                        color: Colors.black54,
-                        height: 100,
-                        width: double.infinity,
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: <Widget>[
-                            Text(
-                              item.title,
-                              style: Theme.of(context).textTheme.title,
+              ),
+              Align(
+                alignment: Alignment.bottomCenter,
+                child: ClipRect(
+                  child: BackdropFilter(
+                    filter: ImageFilter.blur(
+                      sigmaX: 6.0,
+                      sigmaY: 7.0,
+                    ),
+                    child: Container(
+                      padding:
+                          EdgeInsets.symmetric(horizontal: 12.0, vertical: 6.0),
+                      color: Colors.black54,
+                      height: 100,
+                      width: double.infinity,
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: <Widget>[
+                          Text(
+                            item.title,
+                            overflow: TextOverflow.ellipsis,
+                            maxLines: 1,
+                            style: TextStyle(
+                                fontWeight: FontWeight.w600,
+                                fontFamily: "PlayfairDisplay",
+                                fontSize: 20),
+                          ),
+                          Text(
+                            item.date,
+                            style: TextStyle(fontFamily: "Montserrat"),
+                          ),
+                          Flexible(
+                            child: Text(
+                              item.explanation,
+                              style: TextStyle(fontFamily: "Montserrat"),
+                              overflow: TextOverflow.ellipsis,
+                              maxLines: 1,
                             ),
-                            Text(
-                              item.date,
-                              style: Theme.of(context).textTheme.subtitle,
-                            ),
-                            Flexible(
-                              child: Text(
-                                item.explanation,
-                                style: Theme.of(context).textTheme.body1,
-                                overflow: TextOverflow.ellipsis,
-                                maxLines: 1,
-                              ),
-                            ),
-                          ],
-                        ),
+                          ),
+                        ],
                       ),
                     ),
                   ),
-                )
-              ],
-            ),
+                ),
+              )
+            ],
           ),
         ),
       ),
