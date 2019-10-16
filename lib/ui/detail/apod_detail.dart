@@ -2,7 +2,6 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:image_downloader/image_downloader.dart';
 import 'package:provider/provider.dart';
 
 import '../../api/apod_exception.dart';
@@ -44,28 +43,32 @@ class ApodDetailsPage extends StatelessWidget {
                 );
               },
               child: FlexibleSpaceBar(
-                background: Hero(
-                  tag: apod.url,
-                  child: Stack(
-                    fit: StackFit.expand,
-                    children: <Widget>[
-                      CachedNetworkImage(imageUrl: apod.url, fit: BoxFit.cover),
-                      Container(
-                        decoration: BoxDecoration(
-                            gradient: LinearGradient(
-                                begin: FractionalOffset.topCenter,
-                                end: FractionalOffset.bottomCenter,
-                                colors: [
-                              Colors.grey.withOpacity(0.0),
-                              Color(0xFF121212),
-                            ],
-                                stops: [
-                              0.0,
-                              1.0
-                            ])),
-                      )
-                    ],
-                  ),
+                background: Stack(
+                  fit: StackFit.expand,
+                  children: <Widget>[
+                    Hero(
+                        tag: apod.url,
+                        child: CachedNetworkImage(
+                            imageUrl: apod.url, fit: BoxFit.cover)),
+                    Container(
+                      decoration: BoxDecoration(
+                        gradient: LinearGradient(
+                          begin: FractionalOffset.topCenter,
+                          end: FractionalOffset.bottomCenter,
+                          colors: [
+                            Colors.grey.withOpacity(0.0),
+                            Color(0xFF121212).withOpacity(0.3),
+                            Color(0xFF121212),
+                          ],
+                          stops: [
+                            0.0,
+                            0.7,
+                            1.0,
+                          ],
+                        ),
+                      ),
+                    )
+                  ],
                 ),
               ),
             ),

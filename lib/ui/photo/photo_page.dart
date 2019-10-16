@@ -15,7 +15,7 @@ class PhotoViewPage extends StatelessWidget {
       appBar: AppBar(backgroundColor: Colors.black),
       body: Container(
         child: PhotoView(
-          heroAttributes: PhotoViewHeroAttributes(tag: apod.date),
+          heroAttributes: PhotoViewHeroAttributes(tag: apod.url),
           imageProvider: CachedNetworkImageProvider(apod.url),
           loadingChild: Center(
             child: CupertinoActivityIndicator(radius: 16),
