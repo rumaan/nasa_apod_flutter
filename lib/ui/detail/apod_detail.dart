@@ -1,6 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:image_downloader/image_downloader.dart';
 import 'package:provider/provider.dart';
 
@@ -17,9 +18,15 @@ class ApodDetailsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Color(0xFF121212),
       floatingActionButton: FloatingActionButton(
+        backgroundColor: Color(0xFF65E87D),
         onPressed: () => _handleDownloadClick(context),
-        child: Icon(Icons.file_download),
+        child: Icon(
+          FontAwesomeIcons.download,
+          color: Colors.black,
+          size: 20,
+        ),
       ),
       body: CustomScrollView(
         physics: BouncingScrollPhysics(),
@@ -38,9 +45,27 @@ class ApodDetailsPage extends StatelessWidget {
               },
               child: FlexibleSpaceBar(
                 background: Hero(
-                  tag: apod.date,
-                  child:
+                  tag: apod.url,
+                  child: Stack(
+                    fit: StackFit.expand,
+                    children: <Widget>[
                       CachedNetworkImage(imageUrl: apod.url, fit: BoxFit.cover),
+                      Container(
+                        decoration: BoxDecoration(
+                            gradient: LinearGradient(
+                                begin: FractionalOffset.topCenter,
+                                end: FractionalOffset.bottomCenter,
+                                colors: [
+                              Colors.grey.withOpacity(0.0),
+                              Color(0xFF121212),
+                            ],
+                                stops: [
+                              0.0,
+                              1.0
+                            ])),
+                      )
+                    ],
+                  ),
                 ),
               ),
             ),
@@ -48,36 +73,50 @@ class ApodDetailsPage extends StatelessWidget {
           SliverPadding(
             padding: EdgeInsets.symmetric(vertical: 14, horizontal: 16),
             sliver: DefaultTextStyle(
-              style: TextStyle(color: Colors.black),
+              style: TextStyle(color: Colors.white),
               child: SliverFillRemaining(
                 hasScrollBody: false,
                 fillOverscroll: true,
                 child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
+                    Container(
+                      width: 80,
+                      child: Divider(
+                        thickness: 6,
+                        height: 20,
+                        color: Colors.grey,
+                      ),
+                    ),
+                    SizedBox(
+                      height: 10,
+                    ),
                     Text(
                       apod.title,
                       maxLines: 3,
+                      textAlign: TextAlign.center,
                       style: TextStyle(
-                        fontWeight: FontWeight.w300,
-                        fontSize: 26,
+                          fontWeight: FontWeight.w600,
+                          fontSize: 30,
+                          fontFamily: "Rubik Regular"),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 16.0),
+                      child: Text(
+                        apod.date,
+                        style: TextStyle(
+                            fontSize: 16,
+                            color: Colors.grey,
+                            fontWeight: FontWeight.w500,
+                            fontFamily: "Rubik Light"),
                       ),
                     ),
-                    SizedBox(height: 8),
-                    Text(
-                      apod.date,
-                      style: TextStyle(
-                        fontSize: 16,
-                        fontWeight: FontWeight.w500,
-                      ),
-                    ),
-                    SizedBox(height: 8),
                     Text(
                       apod.explanation,
+                      textAlign: TextAlign.justify,
                       style: TextStyle(
-                        fontWeight: FontWeight.w400,
-                        fontSize: 16,
-                      ),
+                          fontWeight: FontWeight.w400,
+                          fontSize: 18,
+                          fontFamily: "Zilla Slab Light"),
                     ),
                   ],
                 ),
@@ -141,13 +180,18 @@ class ApodDetailsPage extends StatelessWidget {
       children: <Widget>[
         Text(
           'Downloading...',
-          style:
-              Theme.of(context).textTheme.title.copyWith(color: Colors.black),
+          style: Theme.of(context).textTheme.title.copyWith(
+                color: Colors.black,
+                fontFamily: "Rubik Regular",
+                fontWeight: FontWeight.w600,
+              ),
         ),
         SizedBox(height: 18),
         ClipRRect(
           borderRadius: BorderRadius.circular(4),
           child: LinearProgressIndicator(
+            backgroundColor: Color(0xFF7EBDC3),
+            valueColor: AlwaysStoppedAnimation<Color>(Color(0xFF4B7175)),
             value: snapshot.data,
             semanticsValue: "${snapshot.data * 100}%",
             semanticsLabel: "Download Progress",
@@ -158,7 +202,18 @@ class ApodDetailsPage extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.end,
           children: <Widget>[
             FlatButton(
-              child: Text('CANCEL'),
+              child: Text(
+                'CANCEL',
+                style: TextStyle(
+                  fontFamily: "Rubik Light",
+                  fontWeight: FontWeight.w600,
+                  fontSize: 12,
+                  color: Colors.black,
+                ),
+              ),
+              color: Colors.grey[350],
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(30)),
               onPressed: () {
                 Provider.of<HomeBloc>(context).cancelDownload();
                 Navigator.pop(context);
@@ -171,29 +226,69 @@ class ApodDetailsPage extends StatelessWidget {
   }
 
   void _handleDownloadClick(BuildContext context) async {
-    bool shouldDownload = await showDialog<bool>(
+    bool shouldDownload = await showGeneralDialog(
+          barrierColor: Colors.black.withOpacity(0.8),
           context: context,
-          builder: (ctx) {
+          barrierDismissible: true,
+          barrierLabel: '',
+          transitionDuration: Duration(milliseconds: 200),
+          pageBuilder: (BuildContext buildContext, Animation<double> animation,
+              Animation<double> secondaryAnimation) {
             return AlertDialog(
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(20)),
+              backgroundColor: Colors.grey,
               title: Text(
-                'Do you want to download the image?',
-                style: Theme.of(context)
-                    .textTheme
-                    .title
-                    .copyWith(color: Colors.black),
+                'Download the image?',
+                style: TextStyle(
+                    fontFamily: "Rubik Regular",
+                    color: Colors.black,
+                    fontWeight: FontWeight.w600,
+                    fontSize: 24),
               ),
               actions: <Widget>[
                 FlatButton(
-                  onPressed: () => Navigator.pop(ctx, true),
-                  child: Text('Yes, Download'.toUpperCase()),
+                  onPressed: () => Navigator.pop(context, true),
+                  child: Text(
+                    'Yes, Download'.toUpperCase(),
+                    style: TextStyle(
+                        fontFamily: "Rubik Light",
+                        color: Colors.black,
+                        fontSize: 12,
+                        fontWeight: FontWeight.w600),
+                  ),
+                  color: Colors.grey[350],
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(30)),
                 ),
                 FlatButton(
-                  onPressed: () => Navigator.pop(ctx, false),
-                  child: Text('Cancel'.toUpperCase()),
+                  onPressed: () => Navigator.pop(context, false),
+                  child: Text(
+                    'Cancel'.toUpperCase(),
+                    style: TextStyle(
+                      fontFamily: "Rubik Light",
+                      fontWeight: FontWeight.w600,
+                      fontSize: 12,
+                      color: Colors.black,
+                    ),
+                  ),
                 ),
               ],
             );
           },
+          transitionBuilder: (
+            BuildContext context,
+            Animation<double> animation,
+            Animation<double> secondaryAnimation,
+            Widget child,
+          ) =>
+              SlideTransition(
+            position: Tween<Offset>(
+              begin: const Offset(0.0, 1.0),
+              end: Offset.zero,
+            ).animate(animation),
+            child: child,
+          ),
         ) ??
         false;
     if (shouldDownload) {
@@ -205,13 +300,18 @@ class ApodDetailsPage extends StatelessWidget {
     final bloc = Provider.of<HomeBloc>(context);
     try {
       bloc.download(apod);
-      await showDialog(
+      await showGeneralDialog(
+        barrierColor: Colors.black.withOpacity(0.8),
         context: context,
-        barrierDismissible: false,
-        builder: (ctx) {
+        barrierDismissible: true,
+        barrierLabel: '',
+        transitionDuration: Duration(milliseconds: 200),
+        pageBuilder: (BuildContext buildContext, Animation<double> animation,
+            Animation<double> secondaryAnimation) {
           return AlertDialog(
-            shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(4.0)),
+            shape:
+                RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+            backgroundColor: Colors.grey,
             content: StreamBuilder<double>(
               stream: bloc.downloadProgress,
               initialData: 0.01,
@@ -224,6 +324,19 @@ class ApodDetailsPage extends StatelessWidget {
             ),
           );
         },
+        transitionBuilder: (
+          BuildContext context,
+          Animation<double> animation,
+          Animation<double> secondaryAnimation,
+          Widget child,
+        ) =>
+            SlideTransition(
+          position: Tween<Offset>(
+            begin: const Offset(0.0, 1.0),
+            end: Offset.zero,
+          ).animate(animation),
+          child: child,
+        ),
       );
     } on ApodException catch (e) {
       showDialog(

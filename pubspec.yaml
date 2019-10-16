@@ -19,6 +19,7 @@ dependencies:
   cached_network_image: ^1.1.1
   photo_view: ^0.5.0
   image_downloader: ^0.19.1
+  font_awesome_flutter: ^8.5.0
 
 dev_dependencies:
   flutter_test:
@@ -32,3 +33,16 @@ flutter:
   assets:
   - assets/
   - assets/images/
+
+  fonts:
+    - family: Rubik Regular
+      fonts:
+        - asset: assets/fonts/Rubik-Regular.ttf
+
+    - family: Rubik Light
+      fonts:
+        - asset: assets/fonts/Rubik-Light.ttf
+
+    - family: Zilla Slab Light
+      fonts:
+        - asset: assets/fonts/ZillaSlab-Light.ttf
