@@ -72,7 +72,7 @@ class HomeBloc {
   void _getApods(DateTime date, int count) async {
     for (var i = 0; i < count; i++) {
       // Save requests for apods which we already have
-      var element = _apods.where((e) => e.date == date.toString());
+      var element = _apods.where((e) => e.date == date.toString()).toList();
       if (element == null || element.isEmpty) {
         try {
           final apod = await _repository.getApod(date);
