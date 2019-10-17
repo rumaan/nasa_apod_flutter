@@ -5,6 +5,7 @@ import 'package:provider/provider.dart';
 import '../../model/apod_model.dart';
 import 'app_bar.dart';
 import 'bloc/home_bloc.dart';
+import 'package:nasa_apod_flutter/ui/about/about.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -13,6 +14,20 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   ScrollController _scrollController;
+
+  void _handleMenuOpen() {
+    Navigator.of(context).push(
+      PageRouteBuilder(
+        pageBuilder: (context, _, __) => About(),
+        transitionsBuilder: (context, anim, a2, child) => FadeTransition(
+          opacity: anim,
+          child: child,
+        ),
+        transitionDuration: Duration(milliseconds: 375),
+      ),
+    );
+  }
+
   @override
   void initState() {
     super.initState();
@@ -39,6 +54,31 @@ class _HomePageState extends State<HomePage> {
               floating: false,
               pinned: true,
               backgroundColor: Colors.black,
+              actions: <Widget>[
+                Theme(
+                  data: ThemeData(
+                    cardColor: Colors.black,
+                    textTheme: ThemeData.dark().textTheme,
+                  ),
+                  child: PopupMenuButton<String>(
+                    icon: Icon(
+                      Icons.more_vert,
+                      color: Colors.white,
+                    ),
+                    onSelected: (String menu) {
+                      _handleMenuOpen();
+                    },
+                    itemBuilder: (BuildContext contect) {
+                      return ['About'].map((String menuValue) {
+                        return PopupMenuItem<String>(
+                          value: menuValue,
+                          child: Text(menuValue),
+                        );
+                      }).toList();
+                    },
+                  ),
+                ),
+              ],
               flexibleSpace: FlexibleSpaceBar(
                 centerTitle: true,
                 title: Text("DISCOVER",
