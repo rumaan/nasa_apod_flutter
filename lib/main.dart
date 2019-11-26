@@ -8,7 +8,9 @@ import 'ui/home/bloc/home_bloc.dart';
 import 'ui/home/home.dart';
 
 void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
   await ApiClientProvider.initializeClient();
+  
   runApp(MyApp());
 }
 

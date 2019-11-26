@@ -12,6 +12,7 @@
         android:name="io.flutter.app.FlutterApplication"
         android:label="nasa_apod_flutter"
         android:icon="@mipmap/ic_launcher">
+        tools:replace="android:appComponentFactory"
         <activity
             android:name=".MainActivity"
             android:launchMode="singleTop"
